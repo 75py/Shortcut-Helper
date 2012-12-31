@@ -12,13 +12,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class SavedShortcutListActivity extends ListActivity {
+public class SavedShortcutListActivity extends ListActivity
+{
 
 	private String[] keys;
 	private SharedPreferences mSharedPreferences;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.shortcut_list);
 
@@ -26,22 +28,25 @@ public class SavedShortcutListActivity extends ListActivity {
 
 		ShortcutStatusHolder holder = new ShortcutStatusHolder(getApplicationContext());
 		keys = holder.getKeys();
-		if (keys == null) {
+		if (keys == null)
+		{
 			Toast.makeText(getApplicationContext(), R.string.empty, Toast.LENGTH_LONG).show();
 			finish();
 			return;
 		}
 		List<String> listStrings = new ArrayList<String>();
-		for (int i = 0; i < keys.length; i++) {
+		for (int i = 0; i < keys.length; i++)
+		{
 			listStrings.add(mSharedPreferences.getString(keys[i], "null"));
 		}
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
-				listStrings);
+																														listStrings);
 		setListAdapter(adapter);
 	}
 
 	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
+	protected void onListItemClick(ListView l, View v, int position, long id)
+	{
 		super.onListItemClick(l, v, position, id);
 
 		String key = keys[position];
