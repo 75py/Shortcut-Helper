@@ -7,8 +7,8 @@ Shortcut-Helper
 
 ##使い方
 
-1.ShortcutHelper.apkをインストールする
-2.com.android.launcher.action.INSTALL_SHORTCUTのブロードキャストを送信する<br />この時、Shortcut Helperがショートカットの情報を保存します。
-3.ランチャーなどからショートカット作成でこのアプリを呼び出す
+1. ShortcutHelper.apkをインストールする
+2. com.android.launcher.action.INSTALL_SHORTCUTのブロードキャストを送信する<br />この時、Shortcut Helperがショートカットの情報を保存します。
+3. ランチャーなどからショートカット作成でこのアプリを呼び出す
 
 <p>保存したやつの削除機能はめんどくさいので付けていません。アプリを再インストールするなりデータ消すなりしてください。</p>
