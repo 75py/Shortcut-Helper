@@ -28,7 +28,7 @@ public class InstallShortcutReceiver extends BroadcastReceiver {
 				PackageManager pm = context.getPackageManager();
 				ActivityInfo info = pm.getActivityInfo(intent.getComponent(), 0);
 				name = info.loadLabel(pm).toString();
-			} catch (PackageManager.NameNotFoundException nnfe) {
+			} catch (PackageManager.NameNotFoundException e) {
 				return;
 			}
 		}
