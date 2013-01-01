@@ -13,6 +13,6 @@
         android:id="@+id/android:empty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/empty" />
+        android:text="@string/message_empty" />
 
 </LinearLayout>

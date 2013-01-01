@@ -1,5 +1,7 @@
 package com.nagopy.shortcut.helper;
 
+import com.nagopy.shortcut.helper.util.ShortcutStatusHolder;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -25,6 +27,7 @@ public class InstallShortcutReceiver extends BroadcastReceiver {
 		String name = data.getStringExtra(Intent.EXTRA_SHORTCUT_NAME);
 		if (name == null) {
 			try {
+				// ラベルがない場合はアプリ名を取得してみる
 				PackageManager pm = context.getPackageManager();
 				ActivityInfo info = pm.getActivityInfo(intent.getComponent(), 0);
 				name = info.loadLabel(pm).toString();
@@ -33,21 +36,21 @@ public class InstallShortcutReceiver extends BroadcastReceiver {
 			}
 		}
 
-		Intent sendIntent = new Intent();
-		sendIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, name);
-		sendIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, intent);
+		Intent mainIntent = new Intent();
+		mainIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, name);
+		mainIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, intent);
 
 		Parcelable icon = data.getParcelableExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE);
 		if (icon != null) {
-			sendIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
+			mainIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
 					data.getParcelableExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE));
 		} else {
-			sendIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON, data.getParcelableExtra(Intent.EXTRA_SHORTCUT_ICON));
+			mainIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON, data.getParcelableExtra(Intent.EXTRA_SHORTCUT_ICON));
 		}
 
-		sendIntent.setAction(ACTION_INSTALL_SHORTCUT);
+		mainIntent.setAction(ACTION_INSTALL_SHORTCUT);
 
 		ShortcutStatusHolder holder = new ShortcutStatusHolder(context);
-		holder.save(String.valueOf(System.currentTimeMillis()), sendIntent);
+		holder.save(String.valueOf(System.currentTimeMillis()), mainIntent);
 	}
 }

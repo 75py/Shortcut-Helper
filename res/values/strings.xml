@@ -2,7 +2,10 @@
 <resources>
 
     <string name="app_name">Shortcut Helper</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="empty">Empty</string>
+    <string name="message_empty">Save Contents is Empty.</string>
+    <string name="title_reset">Reset the save data</string>
+    <string name="message_reset_error_clear_sharedpreferences">"Error: Couldn't delete prefs."</string>
+    <string name="message_reset_error_delete_files">"Error: Couldn't delete icon files."</string>
+    <string name="message_reset_complete">Completed reset.</string>
 
 </resources>
