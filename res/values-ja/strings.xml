@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Shortcut Helper</string>
+    <string name="message_empty">ショートカットが保存されていません。</string>
+    <string name="message_error_rewrite_database">データベースエラー</string>
+    <string name="message_error_delete_icon_file">アイコンファイルの削除に失敗しました。</string>
+    <string name="message_complete">完了しました。</string>
+
+    <!-- dialog -->
+    <string name="dialog_title_longclick_list">操作</string>
+    <string name="dialog_title_edit_label">ラベル名の編集</string>
+
+</resources>

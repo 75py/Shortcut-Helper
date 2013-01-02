@@ -1,13 +1,13 @@
 package com.nagopy.shortcut.helper;
 
-import com.nagopy.shortcut.helper.util.ShortcutStatusHolder;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Parcelable;
+
+import com.nagopy.shortcut.helper.data.ShortcutStatusHolder;
 
 public class InstallShortcutReceiver extends BroadcastReceiver {
 
@@ -28,9 +28,9 @@ public class InstallShortcutReceiver extends BroadcastReceiver {
 		if (name == null) {
 			try {
 				// ラベルがない場合はアプリ名を取得してみる
-				PackageManager pm = context.getPackageManager();
-				ActivityInfo info = pm.getActivityInfo(intent.getComponent(), 0);
-				name = info.loadLabel(pm).toString();
+				PackageManager packageManager = context.getPackageManager();
+				ActivityInfo activityInfo = packageManager.getActivityInfo(intent.getComponent(), 0);
+				name = activityInfo.loadLabel(packageManager).toString();
 			} catch (PackageManager.NameNotFoundException e) {
 				return;
 			}
@@ -51,6 +51,6 @@ public class InstallShortcutReceiver extends BroadcastReceiver {
 		mainIntent.setAction(ACTION_INSTALL_SHORTCUT);
 
 		ShortcutStatusHolder holder = new ShortcutStatusHolder(context);
-		holder.save(String.valueOf(System.currentTimeMillis()), mainIntent);
+		holder.save(mainIntent);
 	}
 }
