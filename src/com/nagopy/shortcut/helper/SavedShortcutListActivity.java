@@ -2,6 +2,7 @@ package com.nagopy.shortcut.helper;
 
 import java.util.ArrayList;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.drawable.BitmapDrawable;
@@ -59,7 +60,12 @@ public class SavedShortcutListActivity extends BaseActivity {
 				if (Intent.ACTION_CREATE_SHORTCUT.equals(getIntent().getAction())) {
 					setResult(RESULT_OK, holder.restoreShortcutIntent(shortcut));
 				} else {
-					startActivity(shortcut.getIntent().addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+					try {
+						startActivity(shortcut.getIntent().addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+					} catch (ActivityNotFoundException e) {
+						// アプリが削除させた場合など
+						showToast(getString(R.string.message_error_activity_not_found));
+					}
 				}
 				finish();
 			}

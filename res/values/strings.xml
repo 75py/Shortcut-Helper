@@ -10,4 +10,7 @@
     <!-- dialog -->
     <string name="dialog_title_longclick_list">Operation</string>
     <string name="dialog_title_edit_label">Label</string>
+    
+    <!-- error -->
+    <string name="message_error_activity_not_found">Activity not found.</string>
 </resources>

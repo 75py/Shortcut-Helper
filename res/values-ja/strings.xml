@@ -11,4 +11,7 @@
     <string name="dialog_title_longclick_list">操作</string>
     <string name="dialog_title_edit_label">ラベル名の編集</string>
 
+    <!-- error -->
+    <string name="message_error_activity_not_found">アプリが見つかりませんでした。</string>
+
 </resources>
