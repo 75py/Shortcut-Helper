@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.nagopy.lib.base.BaseActivity;
+import com.nagopy.lib.image.ImageUtils;
 import com.nagopy.shortcut.helper.data.DatabaseAdapter;
 import com.nagopy.shortcut.helper.data.Shortcut;
 import com.nagopy.shortcut.helper.data.ShortcutStatusHolder;
@@ -63,7 +64,7 @@ public class SavedShortcutListActivity extends BaseActivity {
 					try {
 						startActivity(shortcut.getIntent().addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 					} catch (ActivityNotFoundException e) {
-						// アプリが削除させた場合など
+						// アプリが削除された場合など
 						showToast(getString(R.string.message_error_activity_not_found));
 					}
 				}
@@ -156,6 +157,12 @@ public class SavedShortcutListActivity extends BaseActivity {
 
 	private class ShortcutListAdapter extends BaseAdapter {
 
+		private int iconSize;
+
+		public ShortcutListAdapter() {
+			iconSize = ImageUtils.getIconSize(getApplicationContext());
+		}
+
 		@Override
 		public int getCount() {
 			return shortcutList.size();
@@ -191,8 +198,12 @@ public class SavedShortcutListActivity extends BaseActivity {
 				convertView.setTag(shortcut.getId());
 
 				ShortcutStatusHolder shortcutHolder = new ShortcutStatusHolder(getApplicationContext());
-				holder.labelTextView.setCompoundDrawablesWithIntrinsicBounds(new BitmapDrawable(getResources(),
-						shortcutHolder.restoreIcon(shortcut.getIconFileName())), null, null, null);
+
+				Drawable icon = ImageUtils.getDrawable(getResources(),
+						shortcutHolder.restoreIcon(shortcut.getIconFileName()));
+				icon.setBounds(0, 0, iconSize, iconSize);
+
+				holder.labelTextView.setCompoundDrawables(icon, null, null, null);
 			}
 			return convertView;
 		}

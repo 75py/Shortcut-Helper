@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URISyntaxException;
 
-import com.nagopy.shortcut.helper.InstallShortcutReceiver;
-
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -24,6 +22,9 @@ import android.graphics.drawable.Drawable;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.util.Log;
+
+import com.nagopy.lib.image.ResourceDrawables;
+import com.nagopy.shortcut.helper.InstallShortcutReceiver;
 
 public class ShortcutStatusHolder {
 
@@ -61,7 +62,10 @@ public class ShortcutStatusHolder {
 				final PackageManager packageManager = mContext.getPackageManager();
 				Resources resources = packageManager.getResourcesForApplication(iconResource.packageName);
 				final int id = resources.getIdentifier(iconResource.resourceName, null, null);
-				Drawable icon = resources.getDrawable(id);
+
+				ResourceDrawables resourceDrawables = ResourceDrawables.getInstance(mContext, resources);
+				Drawable icon = resourceDrawables.getDrawable(id);
+
 				saveBitmap(((BitmapDrawable) icon).getBitmap(), createIconKey(key));
 			} catch (Exception e) {
 				Log.w("debug", "Could not load shortcut icon: " + extra);
