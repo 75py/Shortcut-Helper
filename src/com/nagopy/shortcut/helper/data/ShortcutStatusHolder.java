@@ -23,10 +23,22 @@ import com.nagopy.lib.image.ImageUtils;
 import com.nagopy.lib.image.ResourceDrawables;
 import com.nagopy.shortcut.helper.InstallShortcutReceiver;
 
+/**
+ * ショートカットの保存・復元を行うクラス<br>
+ * このクラスが中でDBにアクセスする
+ */
 public class ShortcutStatusHolder {
 
+	/**
+	 * コンテキスト
+	 */
 	private Context mContext;
 
+	/**
+	 * コンストラクタ
+	 * @param context
+	 *           アプリケーションのコンストラクタ
+	 */
 	public ShortcutStatusHolder(Context context) {
 		mContext = context;
 	}
@@ -72,8 +84,8 @@ public class ShortcutStatusHolder {
 
 	/**
 	 * ショートカットのintentを復元する
-	 * @param key
-	 *           保存に使ったキー
+	 * @param shortcut
+	 *           保存したいショートカット
 	 * @return setResultするだけのintent
 	 */
 	public Intent restoreShortcutIntent(Shortcut shortcut) {
@@ -99,7 +111,7 @@ public class ShortcutStatusHolder {
 		// Log.d("debug", "bitmap.getWidth():" + bitmap.getWidth());
 		try {
 			OutputStream out = mContext.openFileOutput(filename, Context.MODE_PRIVATE);
-			bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+			bitmap.compress(Bitmap.CompressFormat.PNG, 100, out); // CHECKSTYLE IGNORE THIS LINE
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -107,6 +119,9 @@ public class ShortcutStatusHolder {
 
 	/**
 	 * 保存したアイコンの復元
+	 * @param filename
+	 *           ファイル名
+	 * @return アイコンのbitmap
 	 */
 	public Bitmap restoreIcon(String filename) {
 		Bitmap bitmap = null;
@@ -114,9 +129,9 @@ public class ShortcutStatusHolder {
 			FileInputStream in = mContext.openFileInput(filename);
 			BufferedInputStream binput = new BufferedInputStream(in);
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
-			byte[] w = new byte[1024];
+			byte[] w = new byte[1024]; // CHECKSTYLE IGNORE THIS LINE
 			while (binput.read(w) >= 0) {
-				out.write(w, 0, 1024);
+				out.write(w, 0, 1024); // CHECKSTYLE IGNORE THIS LINE
 			}
 			byte[] byteData = out.toByteArray();
 			bitmap = BitmapFactory.decodeByteArray(byteData, 0, byteData.length);

@@ -6,11 +6,26 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/**
+ * データベースの書き換えを行うためのクラス
+ */
 public class DatabaseAdapter {
+	/**
+	 * データベースのファイル名
+	 */
 	private static final String DATABASE_NAME = "shortcuts.db";
+
+	/**
+	 * データベースのバージョン
+	 */
 	private static final int DATABASE_VERSION = 1;
 
+	/**
+	 * デーブル名
+	 */
 	public static final String TABLE_NAME = "shortcuts";
+
+	// CHECKSTYLE:OFF
 	public static final String COL_ID = "_id";
 	public static final String COL_LABEL_STRING = "label";
 	public static final String COL_INTENT_STRING = "intent_string";
@@ -22,12 +37,27 @@ public class DatabaseAdapter {
 	private DatabaseHelper mDatabaseHelper;
 	private SQLiteDatabase mSQLiteDatabase;
 
+	// CHECKSTYLE:ON
+
+	/**
+	 * コンストラクタ
+	 * @param context
+	 *           アプリケーションのコンストラクタ
+	 */
 	public DatabaseAdapter(Context context) {
 		mContext = context;
 		mDatabaseHelper = new DatabaseHelper(context);
 	}
 
+	/**
+	 * データベースを管理するためのクラス
+	 */
 	private static class DatabaseHelper extends SQLiteOpenHelper {
+		/**
+		 * コンストラクタ
+		 * @param context
+		 *           アプリケーションのコンストラクタ
+		 */
 		public DatabaseHelper(Context context) {
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		}
@@ -47,11 +77,18 @@ public class DatabaseAdapter {
 
 	}
 
+	/**
+	 * データベースを開く
+	 * @return this
+	 */
 	public DatabaseAdapter open() {
 		mSQLiteDatabase = mDatabaseHelper.getWritableDatabase();
 		return this;
 	}
 
+	/**
+	 * データベースを閉じる
+	 */
 	public void close() {
 		mDatabaseHelper.close();
 	}
@@ -63,6 +100,7 @@ public class DatabaseAdapter {
 	/**
 	 * IDを基に削除する
 	 * @param id
+	 *           ID
 	 * @return 成功すればtrue
 	 */
 	public boolean deleteShortcut(String id) {
@@ -72,7 +110,10 @@ public class DatabaseAdapter {
 	/**
 	 * ラベル名の更新
 	 * @param id
+	 *           ID
 	 * @param newLabel
+	 *           新しいラベル名
+	 * @return 書き換えが成功していればtrueを返す
 	 */
 	public boolean updateLabel(String id, String newLabel) {
 		ContentValues contentValues = new ContentValues();
@@ -82,7 +123,7 @@ public class DatabaseAdapter {
 
 	/**
 	 * Cursorを返して頑張る用
-	 * @return
+	 * @return cursor
 	 */
 	public Cursor getAllShortcuts() {
 		return mSQLiteDatabase.query(TABLE_NAME, null, null, null, null, null, null);

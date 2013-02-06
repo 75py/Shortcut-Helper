@@ -134,7 +134,7 @@ public class SavedShortcutListActivity extends BaseActivity {
 		});
 	}
 
-	protected void loadDatabase() {
+	private void loadDatabase() {
 		shortcutList.clear();
 
 		mDatabaseAdapter.open();
@@ -203,8 +203,18 @@ public class SavedShortcutListActivity extends BaseActivity {
 
 	}
 
+	/**
+	 * ビューホルダー
+	 */
 	static class ViewHolder {
+		/**
+		 * ラベル名を表示するテキストビュー
+		 */
 		TextView labelTextView;
+
+		/**
+		 * インテントの中身を表示するテキストビュー
+		 */
 		TextView intentTextView;
 	}
 }

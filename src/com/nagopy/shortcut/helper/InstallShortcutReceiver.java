@@ -9,8 +9,14 @@ import android.os.Parcelable;
 
 import com.nagopy.shortcut.helper.data.ShortcutStatusHolder;
 
+/**
+ * ショートカットをインストールするブロードキャストを受信するレシーバー
+ */
 public class InstallShortcutReceiver extends BroadcastReceiver {
 
+	/**
+	 * ショートカットをインストールする際のACTION
+	 */
 	public static final String ACTION_INSTALL_SHORTCUT = "com.android.launcher.action.INSTALL_SHORTCUT";
 
 	@Override

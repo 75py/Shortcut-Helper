@@ -10,6 +10,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+/**
+ * ダイアログでリストを表示するためのフラグメント
+ */
 public class ListDialogFragment extends DialogFragment {
 
 	/**
@@ -36,12 +39,12 @@ public class ListDialogFragment extends DialogFragment {
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(getOnItemClickListener());
 
-		return new AlertDialog.Builder(getActivity()).setView(listView)
-				.setTitle(getDialogTitle()).create();
+		return new AlertDialog.Builder(getActivity()).setView(listView).setTitle(getDialogTitle()).create();
 	}
 
 	/**
 	 * 保存した配列のリソースIDを取得する
+	 * @return 保存しておいた配列のリソースID
 	 */
 	private int getArrayResId() {
 		return getArguments().getInt(KEY_ARRAYSTRING_RES_ID);
@@ -49,19 +52,27 @@ public class ListDialogFragment extends DialogFragment {
 
 	/**
 	 * 保存したリスナーを取得する
+	 * @return 保存しておいたリスナー
 	 */
 	private OnItemClickListener getOnItemClickListener() {
 		return (OnItemClickListener) getArguments().get(KEY_ON_ITEM_CLICK_LISTENER);
 	}
-	
-	private String getDialogTitle(){
+
+	/**
+	 * @return 保存しておいたダイアログのタイトル
+	 */
+	private String getDialogTitle() {
 		return getArguments().getString(KEY_DIALOG_TITLE);
 	}
 
 	/**
 	 * 配列のリソースIDとリスナーを設定する
+	 * @param title
+	 *           ダイアログのタイトル
 	 * @param arrayResId
+	 *           配列のリソースID
 	 * @param listener
+	 *           リスナー
 	 */
 	public void init(String title, int arrayResId, OnListDialogItemClickListener listener) {
 		Bundle bundle = new Bundle();
@@ -71,7 +82,10 @@ public class ListDialogFragment extends DialogFragment {
 		setArguments(bundle);
 	}
 
+	/**
+	 * このフラグメントで使うリスナー。Listのアイテムが選ばれたときに呼ばれる
+	 */
 	@SuppressWarnings("serial")
-	public static abstract class OnListDialogItemClickListener implements OnItemClickListener, Serializable {
+	public abstract static class OnListDialogItemClickListener implements OnItemClickListener, Serializable {
 	}
 }

@@ -13,6 +13,9 @@ import android.widget.EditText;
 
 import com.nagopy.shortcut.helper.R;
 
+/**
+ * 文字入力欄のあるダイアログを表示するフラグメント
+ */
 public class EditTextDialogFragment extends DialogFragment {
 
 	/**
@@ -30,7 +33,14 @@ public class EditTextDialogFragment extends DialogFragment {
 	 */
 	private static final String KEY_DIALOG_TITLE = "KEY_DIALOG_TITLE";
 
+	/**
+	 * 表示するビューのルート
+	 */
 	private View mRootView;
+
+	/**
+	 * EditText
+	 */
 	private EditText mEditText;
 
 	@Override
@@ -60,15 +70,20 @@ public class EditTextDialogFragment extends DialogFragment {
 
 	/**
 	 * 入力欄の文字列を取得
-	 * @return
+	 * @return 入力中の文字列
 	 */
 	private String getInputText() {
 		return mEditText.getText().toString();
 	}
 
 	/**
-	 * リスナーを保存する
+	 * 初期化
+	 * @param dialogTitle
+	 *           ダイアログのタイトル
+	 * @param text
+	 *           デフォルトの入力文字列
 	 * @param listener
+	 *           リスナー
 	 */
 	public void init(String dialogTitle, String text, OnEditTextDialogListener listener) {
 		Bundle bundle = new Bundle();
@@ -79,18 +94,24 @@ public class EditTextDialogFragment extends DialogFragment {
 	}
 
 	/**
-	 * 保存しておいたリスナーを取得
+	 * @return 保存しておいたリスナー
 	 */
 	private OnEditTextDialogListener getListener() {
 		return (OnEditTextDialogListener) getArguments().get(KEY_ON_CLICK_LISTENER);
 	}
 
+	/**
+	 * @return 保存しておいたダイアログのタイトル
+	 */
 	private String getDialogTitle() {
 		return getArguments().getString(KEY_DIALOG_TITLE);
 	}
 
+	/**
+	 * このフラグメントで使うリスナー
+	 */
 	@SuppressWarnings("serial")
-	public static abstract class OnEditTextDialogListener implements Serializable {
+	public abstract static class OnEditTextDialogListener implements Serializable {
 		/**
 		 * OKボタンを押したとき
 		 * @param text
