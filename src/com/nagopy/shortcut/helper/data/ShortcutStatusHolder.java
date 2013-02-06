@@ -19,6 +19,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Parcelable;
 import android.util.Log;
 
+import com.nagopy.lib.image.ImageUtils;
+import com.nagopy.lib.image.ResourceDrawables;
 import com.nagopy.shortcut.helper.InstallShortcutReceiver;
 
 public class ShortcutStatusHolder {
@@ -52,7 +54,10 @@ public class ShortcutStatusHolder {
 				final PackageManager packageManager = mContext.getPackageManager();
 				Resources resources = packageManager.getResourcesForApplication(iconResource.packageName);
 				final int id = resources.getIdentifier(iconResource.resourceName, null, null);
-				Drawable icon = resources.getDrawable(id);
+
+				ResourceDrawables resourceDrawables = ResourceDrawables.getInstance(mContext, resources);
+				Drawable icon = resourceDrawables.getDrawable(id);
+
 				saveBitmap(((BitmapDrawable) icon).getBitmap(), iconFileNaem);
 			} catch (Exception e) {
 				Log.w("debug", "Could not load shortcut icon: " + extra);
@@ -88,6 +93,10 @@ public class ShortcutStatusHolder {
 	 *           ファイル名
 	 */
 	private void saveBitmap(Bitmap bitmap, String filename) {
+		// Log.d("debug", "bitmap.getWidth():" + bitmap.getWidth());
+		int iconSize = ImageUtils.getIconSize(mContext);
+		bitmap = ImageUtils.reduceByMatrix(bitmap, iconSize, iconSize);
+		// Log.d("debug", "bitmap.getWidth():" + bitmap.getWidth());
 		try {
 			OutputStream out = mContext.openFileOutput(filename, Context.MODE_PRIVATE);
 			bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);

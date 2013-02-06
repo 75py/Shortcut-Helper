@@ -156,13 +156,6 @@ public class SavedShortcutListActivity extends BaseActivity {
 	}
 
 	private class ShortcutListAdapter extends BaseAdapter {
-
-		private int iconSize;
-
-		public ShortcutListAdapter() {
-			iconSize = ImageUtils.getIconSize(getApplicationContext());
-		}
-
 		@Override
 		public int getCount() {
 			return shortcutList.size();
@@ -201,9 +194,9 @@ public class SavedShortcutListActivity extends BaseActivity {
 
 				Drawable icon = ImageUtils.getDrawable(getResources(),
 						shortcutHolder.restoreIcon(shortcut.getIconFileName()));
-				icon.setBounds(0, 0, iconSize, iconSize);
 
-				holder.labelTextView.setCompoundDrawables(icon, null, null, null);
+				holder.labelTextView.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+				icon.setCallback(null);
 			}
 			return convertView;
 		}
