@@ -26,6 +26,9 @@ import com.nagopy.shortcut.helper.dialog.EditTextDialogFragment.OnEditTextDialog
 import com.nagopy.shortcut.helper.dialog.ListDialogFragment;
 import com.nagopy.shortcut.helper.dialog.ListDialogFragment.OnListDialogItemClickListener;
 
+/**
+ * 保存したショートカットの一覧を表示するアクティビティ
+ */
 public class SavedShortcutListActivity extends BaseActivity {
 
 	private DatabaseAdapter mDatabaseAdapter;
